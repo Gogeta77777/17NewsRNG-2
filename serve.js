@@ -1,7 +1,6 @@
-// Simple 17 News RNG Game for Deno Deploy
+// Simple HTTP server for Deno Deploy
 import { serve } from "https://deno.land/std@0.140.0/http/server.ts";
 
-// HTML content with embedded game logic
 const HTML = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -125,7 +124,6 @@ const HTML = `<!DOCTYPE html>
   </div>
 
   <script>
-    // Game logic
     let targetNumber = Math.floor(Math.random() * 17) + 1;
     let attempts = 0;
     const maxAttempts = 5;
@@ -201,16 +199,11 @@ const HTML = `<!DOCTYPE html>
 </body>
 </html>`;
 
-// Server handler
-function handleRequest(request) {
-  // Return the HTML page for all requests to the root
+// Serve the HTML for all requests
+serve(async (request) => {
   return new Response(HTML, {
     headers: {
       "content-type": "text/html; charset=utf-8",
     },
   });
-}
-
-// Start the server
-console.log("17 News RNG server starting...");
-serve(handleRequest);
+});
